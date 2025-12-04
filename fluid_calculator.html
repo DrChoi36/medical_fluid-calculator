@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>소아 수액 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f5f7fa;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: #333;
+        }
+        label, input {
+            font-size: 1rem;
+        }
+        input {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #result {
+            background: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>소아 유지 수액 계산기 by Dr Choi</h1>
+    <label for="age">나이 (세):</label><br>
+    <input type="number" id="age" step="1"><br>
+
+    <label for="weight">체중 (kg):</label><br>
+    <input type="number" id="weight" step="0.1"><br>
+
+    <button onclick="calculate()">계산하기</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            const age = parseInt(document.getElementById('age').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+
+            if (isNaN(age) || isNaN(weight) || age < 0 || weight <= 0) {
+                alert("유효한 나이와 체중을 입력해주세요.");
+                return;
+            }
+
+            let fluidPerDay = 0;
+            if (weight <= 10) {
+                fluidPerDay = 100 * weight;
+            } else if (weight <= 20) {
+                fluidPerDay = 1000 + (weight - 10) * 50;
+            } else {
+                fluidPerDay = 1500 + (weight - 20) * 20;
+                if (fluidPerDay > 2400) fluidPerDay = 2400;
+            }
+
+            fluidPerDay = Math.ceil(fluidPerDay);
+            const fluidPerHour = Math.ceil(fluidPerDay / 24);
+
+            let fluidType = "";
+            if (age < 1) {
+                fluidType = "D5 1/4NS + 20mEq/L KCl (필요시)";
+            } else if (age < 8) {
+                fluidType = "D5 1/3NS 또는 D5 1/2NS + 20mEq/L KCl";
+            } else {
+                fluidType = "D5 1/2NS + 20mEq/L KCl";
+            }
+
+            const result = `
+                📈 체중: ${weight} kg<br>
+                📅 나이: ${age} 세<br><br>
+                💧 하루 총 수액 유지량: ${fluidPerDay} mL/day<br>
+                🕒 시간당 수액 속도: ${fluidPerHour} mL/hr<br><br>
+                📄 추천 수액: ${fluidType}
+            `;
+
+            document.getElementById('result').innerHTML = result;
+        }
+    </script>
+</body>
+</html>
