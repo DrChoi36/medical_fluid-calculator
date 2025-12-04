@@ -2,7 +2,7 @@
 
 > **"Calculated Care for Little Ones"** > 진료 현장에서 소아 환자의 유지 수액 용량을 신속하게 계산하기 위해 제작된 웹 기반 계산기입니다.
 >
-🔗 **Live Demo:**([https://drchoi36.github.io/](https://drchoi36.github.io/pages/fluid_calculator.html)
+🔗 **Live Demo:**[https://drchoi36.github.io/](https://drchoi36.github.io/pages/fluid_calculator.html)
 
 ## 📋 개요 (Overview)
 
